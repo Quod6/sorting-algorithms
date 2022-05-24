@@ -124,7 +124,7 @@ void qSortNoRec(T * array, int left, int right, int median)
 	int l_hold = left;
 	int r_hold = right;
 
-	pivot = array[left];
+	pivot = array[(left + right) / 2];
 	s.push(array);
 
 	while(!s.empty())
