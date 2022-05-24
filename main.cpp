@@ -9,8 +9,50 @@
 using namespace std;
 
 template <typename T>
-void qSort(T * array, int left, int right)
+T median(T value1, T value2, T value3)
 {
+	if ((value1 <= value2 && value2 <= value3) || (value3 <= value2 && value2 <= value1))
+	{
+		return value2;
+	}
+
+	if ((value2 <= value1 && value1 <= value3) || (value3 <= value1 && value1 <= value2))
+	{
+		return value1;
+	}
+
+	return value3;
+}
+
+template <typename T>
+void qSort(T * array, int left, int right, int median)
+{
+	if (right - left <= median)
+	{
+		T temp;
+		unsigned j;
+
+		for (unsigned i = 0; i < right + 1; i++)
+		{
+			temp = array[i];
+
+			for (unsigned j = i - 1; j >= 0 && array[j] > temp; j--)
+			{
+				array[j + 1] = array[j];
+			}
+
+			array[j + 1] = temp;
+		}
+
+		return;
+	}
+
+	T med = median(array[left],
+					array[(left + right) / 2],
+					array[right]);
+
+	swap(array[med]);
+
 	int pivot;
 	int l_hold = left;
 	int r_hold = right;
@@ -52,7 +94,6 @@ void qSort(T * array, int left, int right)
 
 int main()
 {
-
 	int a[] = {55, 23, 9, 12, 67, 76, 13, 78, 12, 78, 4, 8, 2, 8, 3, 0, -1};
 
 	for (int i = 0; i < 17; i++)
